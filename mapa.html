@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trolleybus Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 1080px;
+            width: 1920px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([49.22051, 17.71423], 13);
+
+        // Add OpenStreetMap as the base map layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Custom marker icon
+        var customIcon = L.icon({
+            iconUrl: 'double-decker-bus.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
+        });
+
+        function fetchDataAndRefreshMap() {
+            // Fetch data from the API
+            fetch('https://test-9a6w.onrender.com/')
+                .then(response => response.json())
+                .then(data => {
+                    // Clear existing markers
+                    map.eachLayer(layer => {
+                        if (layer instanceof L.Marker) {
+                            map.removeLayer(layer);
+                        }
+                    });
+
+                    // Iterate through the data and add markers to the map with custom icon
+                    data.forEach(trolleybus => {
+                      var delay = (trolleybus.value3 / 60).toFixed(2).replace('.', ':');
+                        var marker = L.marker([trolleybus.value11, trolleybus.value10], { icon: customIcon }).addTo(map);
+                        marker.bindPopup(`<h3>Linka: ${trolleybus.value4}</h3>` +
+                            `<b>Číslo vozu: ${trolleybus.value1}</br>` +
+                            `<b>Zpoždění: ${delay}</br>`);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Fetch data initially and set up periodic refresh every 60 seconds
+        fetchDataAndRefreshMap();
+        setInterval(fetchDataAndRefreshMap, 3000);
+    </script>
+
+</body>
+
+</html>

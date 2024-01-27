@@ -1,0 +1,58 @@
+body {
+    font-family: 'Work Sans', sans-serif;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    align-items: left;
+    margin-bottom: 12px;
+    border: 1px solid black;
+    padding: 0.7rem;
+    max-width: 25rem;
+    border-radius: 35px;
+    flex-wrap: wrap; /* Umožňuje kontejnerům skládat se vedle sebe na širších obrazovkách */
+}
+
+.cislo-linky {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 1.8rem;
+}
+
+.obsah-spoje {
+    text-align: left;
+    max-height: 570px;
+    /* Přidat další styly podle potřeby */
+}
+
+#vyhledavaciInput {
+    border: 1px black solid;
+    border-radius: 25px;
+    width: auto;
+    height: 2rem;
+    margin-bottom: 2rem;
+    padding: 4px;
+}
+
+button {
+    border: 1px solid black;
+    border-radius: 25px;
+    width: auto;
+    height: 2.7rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        border: 1px solid black;
+        padding: 0.7rem;
+        max-width: 25rem;
+        border-radius: 35px;
+        flex-wrap: wrap; /* Umožňuje kontejnerům skládat se vedle sebe na širších obrazovkách */
+    }
+}

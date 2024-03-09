@@ -1,5 +1,5 @@
 function fetchData() {
-  fetch('https://test-evdi.onrender.com/api/data')
+  fetch('https://api.tredfy.cz/mhd')
     .then(response => response.json())
     .then(apiData => {
       var spoje = apiData.message.data;

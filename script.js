@@ -1,5 +1,5 @@
 function fetchData() {
-  fetch('https://api.tredfy.cz/mhd')
+  fetch('https://mhd.tredfy.cz')
     .then(response => response.json())
     .then(apiData => {
       var spoje = apiData.message.data;
